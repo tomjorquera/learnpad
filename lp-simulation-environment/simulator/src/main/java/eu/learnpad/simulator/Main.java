@@ -25,6 +25,9 @@ package eu.learnpad.simulator;
  */
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
@@ -52,22 +55,42 @@ public class Main {
 	 * @param args
 	 * @throws IOException
 	 */
+	@SuppressWarnings("serial")
 	public static void main(String[] args) throws IOException {
 
 		try {
 
 			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
-			simulator.userHandler().addUser(
-					new UserData("bbarnes", "Barnaby", "Barnes", "", "",
-							""));
+			// add users
+			for (String user : Arrays.asList("sally", "barnaby", "robby")) {
+				simulator.userHandler().addUser(
+						new UserData(user, user, "", "", "", ""));
+			}
+
+			simulator.robotHandler().addRobot("robby");
 
 			// load process definitions
-			simulator.processManager().addProjectDefinitions(
-					DEMO_PROCESS_FOLDER + "/suap.bpmn20.xml");
+			String processId = simulator
+					.processManager()
+					.addProjectDefinitions(
+							DEMO_PROCESS_FOLDER + "/demo-suap-1.bpmn20.xml")
+					.iterator().next();
 
-			simulator.processManager().setModelSetId("mod.27772",
-					"LP_ME_ADOXX_MODELSET_28600");
+			simulator.processManager().startProjectInstance(processId,
+					new HashMap<String, Object>() {
+						{
+							put("entrepreneur", "test");
+							put("document", "example_document_valid");
+
+						}
+					}, Arrays.asList("robby"),
+					new HashMap<String, Collection<String>>() {
+						{
+							put("SUAP", Arrays.asList("barnaby"));
+							put("otherOffice", Arrays.asList("robby"));
+						}
+					});
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"
