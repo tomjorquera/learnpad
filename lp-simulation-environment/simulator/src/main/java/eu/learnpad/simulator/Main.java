@@ -77,8 +77,9 @@ public class Main {
 							DEMO_PROCESS_FOLDER + "/demo-suap-1.bpmn20.xml")
 					.iterator().next();
 
-			simulator.processManager().startProjectInstance(processId,
-					new HashMap<String, Object>() {
+			simulator.processManager().startProjectInstance(
+					simulator.processManager().getProcessDefinitionKey(
+							processId), new HashMap<String, Object>() {
 						{
 							put("entrepreneur", "test");
 							put("document", "example_document_valid");
@@ -87,7 +88,7 @@ public class Main {
 					}, Arrays.asList("robby"),
 					new HashMap<String, Collection<String>>() {
 						{
-							put("SUAP", Arrays.asList("barnaby"));
+							put("SUAP", Arrays.asList("robby"));
 							put("otherOffice", Arrays.asList("robby"));
 						}
 					});

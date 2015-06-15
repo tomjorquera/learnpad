@@ -78,6 +78,11 @@ public class MarkovBot implements
 	@Override
 	public Map<String, Object> handleTask(String taskId,
 			Map<String, Object> inputData) {
+
+		System.out.println(markov);
+		System.out.println(taskService.createTaskQuery().taskId(taskId)
+				.singleResult().getTaskDefinitionKey());
+		System.out.println(inputData);
 		return markov.draw(Arrays.asList(new MarkovData(taskService
 				.createTaskQuery().taskId(taskId).singleResult()
 				.getTaskDefinitionKey(), inputData))).properties;

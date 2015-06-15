@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.activiti.engine.HistoryService;
@@ -143,6 +144,18 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				t.getDescription(), documents, new Date().getTime());
 	}
 
+	private void logEvent(String taskId, Map<String, Object> data) {
+		System.out.println("######");
+		System.out.println(taskId);
+		if (data != null) {
+			for (Entry<String, Object> e : data.entrySet()) {
+				System.out.println(e.getKey() + ";" + e.getValue());
+			}
+		}
+		System.out.println("");
+		System.out.println("######");
+	}
+
 	// synchronized since in some case is it possible for several tasks to
 	// complete at the same time, joining on the same next task. This can cause
 	// a race condition where the next task is processed several times.
@@ -169,6 +182,9 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 			final Map<String, Object> data, String completingUser,
 			LearnPadTaskSubmissionResult submissionResult) {
 		super.completeTask(task, data, completingUser, submissionResult);
+		Task activitiTask = taskService.createTaskQuery().taskId(task.id)
+				.singleResult();
+		logEvent(activitiTask.getTaskDefinitionKey(), data);
 		// complete task and de-register it
 		taskService.complete(task.id, data);
 		registeredWaitingTasks.remove(task.id);

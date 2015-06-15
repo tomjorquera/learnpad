@@ -22,6 +22,7 @@ package eu.learnpad.simulator;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
@@ -36,7 +37,7 @@ import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.robot.IRobotFactory;
 import eu.learnpad.simulator.robot.RobotUserEventReceiver;
 import eu.learnpad.simulator.robot.activiti.ActivitiRobotInputExtractor;
-import eu.learnpad.simulator.robot.activiti.simplerobot.SimpleRobotFactory;
+import eu.learnpad.simulator.robot.activiti.markovrobot.MarkovBotFactory;
 import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
@@ -88,9 +89,13 @@ public class Simulator implements IProcessManagerProvider,
 						.getTaskService(), processEngine.getFormService()));
 
 		// handle robots
-		robotFactory = new SimpleRobotFactory(
-				processEngine.getRepositoryService(),
-				processEngine.getTaskService(), processEngine.getFormService());
+		// robotFactory = new SimpleRobotFactory(
+		// processEngine.getRepositoryService(),
+		// processEngine.getTaskService(), processEngine.getFormService());
+
+		robotFactory = new MarkovBotFactory(processEngine.getTaskService(),
+				MarkovBotFactory.readTrainingData(Arrays.asList(
+						"markov/train_valid_1", "markov/train_invalid_1")));
 
 		robotEventReceiver = new RobotUserEventReceiver<Map<String, Object>>(
 				robotFactory, new ActivitiRobotInputExtractor(
