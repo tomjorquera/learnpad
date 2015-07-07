@@ -24,8 +24,20 @@ package eu.learnpad.simulator;
  * #L%
  */
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Scanner;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import eu.learnpad.sim.BridgeInterface;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
 
 /**
@@ -75,5 +87,47 @@ public class Main {
 					.println("Sorry, cannot launch the demo (maybe it is already running?)");
 			System.exit(-1);
 		}
+
+		// REST API demo
+
+		ResteasyClient client = new ResteasyClientBuilder().build();
+
+		ResteasyWebTarget target = client.target("http://localhost:8081/");
+
+		BridgeInterface bridge = target.proxy(BridgeInterface.class);
+
+		InputStream is = bridge.getProcessResults("model1");
+		Scanner st = new java.util.Scanner(is);
+		Scanner s = st.useDelimiter("\\A");
+		System.out.println(s.hasNext() ? s.next() : "");
+		s.close();
+		st.close();
+		is.close();
+
+		System.out.println(bridge.addProcessDefinition(new File(
+				"src/main/resources/process/demo-suap-1.bpmn20.xml").toURI()
+				.toURL().toString()));
+
+		Collection<String> processes = bridge.getProcessDefinitions();
+
+		System.out.println(processes);
+
+		String processKey = processes.iterator().next();
+
+		bridge.addProcessInstance(new ProcessInstanceData("", processKey,
+				new HashMap<String, Object>() {
+					{
+						put("entrepreneur", "T");
+
+					}
+				}, Arrays.asList("barnaby", "sally"),
+				new HashMap<String, Collection<String>>() {
+					{
+						put("SUAP", Arrays.asList("barnaby"));
+						put("otherOffice", Arrays.asList("sally"));
+					}
+				}));
+
+		bridge.getProcessInfos("nonexistant");
 	}
 }
