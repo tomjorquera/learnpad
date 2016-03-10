@@ -453,6 +453,114 @@
 			}
 		}
 	],
-  }
+  },
+    "titulounico" : {
+        "usertask1" : [
+            {
+                "input" : {
+                    "case" : '637-2015'
+                },
+                "output" : {
+                    "accepted" : false
+                }
+            },
+            {
+                "input" : {
+                    "case" : '829-2015'
+                },
+                "output" : {
+                    "accepted" : true
+                }
+            }
+        ],
+        "usertask3" : [
+            {
+                "input" : {
+                    
+                },
+                "output" : {
+                    "doConfOfService" : true
+                }
+            }
+        ],
+        "usertask4" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            },
+        ],
+        "usertask5" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            },
+        ],
+        "usertask6" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "applicationStatus" : "ok"
+                }
+            }
+        ]
+    }
 }
 

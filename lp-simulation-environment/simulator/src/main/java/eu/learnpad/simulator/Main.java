@@ -64,6 +64,9 @@ public class Main {
 			simulator.processManager().addProjectDefinitions(
 					DEMO_PROCESS_FOLDER + "/euproject.bpmn20.xml");
 
+			simulator.processManager().addProjectDefinitions(
+					DEMO_PROCESS_FOLDER + "/suap.bpmn20.xml");
+
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"
 					+ WebServer.getIPAddress() + ":" + PORT);

@@ -69,7 +69,7 @@ public class Multi2JsonFormFormHandler extends AbstractFormHandler {
 			TaskService taskService, FormService activitiFormService) {
 		this(Arrays.asList(new ActivitiToJsonFormFormHandler(
 				activitiFormService), new DataObjectToJsonFormFormHandler(repo,
-				taskService)));
+						taskService)));
 	}
 
 	@Override
