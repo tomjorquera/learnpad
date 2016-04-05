@@ -7,7 +7,7 @@ import org.apache.commons.httpclient.auth.AuthScope;
 
 public class RestResource {
 	final private static String PROTOCOL = "http";
-	final private static String HOSTNAME = "localhost";
+	final private static String HOSTNAME = "192.168.0.100";
 	final private static int PORT = 8080;
 	final private static int SIM_PORT = 8081;
 	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
